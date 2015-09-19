@@ -25,4 +25,18 @@ export default class Layer {
             this.strokes[i].draw();
         }
     }
+
+    toJSON() {
+        let json = {
+            name: this.name,
+            strokes: [],
+            opacity: this.opacity,
+            visible: this.visible
+        };
+        for (let i = 0; i < this.strokes.length; i++) {
+            json.strokes.push(this.strokes[i].toJSON());
+        }
+
+        return json;
+    }
 }

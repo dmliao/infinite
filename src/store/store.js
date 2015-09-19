@@ -14,4 +14,15 @@ export default class Store {
     getCurrentLayer() {
         return this.layers[this.currentLayer];
     }
+
+    toJSON() {
+        let json = {
+            layers: []
+        };
+        for (let i = 0; i < this.layers.length; i++) {
+            json.layers.push(this.layers[i].toJSON());
+        }
+
+        return json;
+    }
 }

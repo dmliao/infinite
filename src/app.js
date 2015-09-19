@@ -28,15 +28,18 @@ global.setup = function() {
 }
 
 global.draw = function() {
-    clear();
-    global.Artwork.getCurrentLayer().draw();
+    // clear();
+    if (currentStroke) {
+        currentStroke.draw();
+    }
 }
 
 // Start it up
 global.mousePressed = function() {
     previous.x = mouseX;
     previous.y = mouseY;
-    currentStroke = new Stroke(mouseX, mouseY, null);
+    currentStroke = new Stroke();
+
     global.Artwork.getCurrentLayer().addStroke(currentStroke);
 }
 
@@ -45,7 +48,7 @@ global.mouseDragged = function() {
         return false;
     }
     currentStroke.addPoint(mouseX, mouseY, {
-        thickness: Math.random() * 4 + 1
+        thickness: 5
     });
 }
 
