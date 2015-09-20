@@ -1,17 +1,12 @@
 // dependencies
-
 var Stroke = require('./elements/stroke');
 var Store = require('./store/store');
 
-global.Artwork = new Store();
+var KeyController = require('./keyboard/keyController');
 
-// Are we painting?
-var painting = false;
-// How long until the next circle
-var next = 0;
-// Where are we now and where were we?
-var current;
-var previous;
+var Toolbox = require('./tools/toolbox');
+
+global.Artwork;
 
 var currentStroke;
 
@@ -22,37 +17,33 @@ global.setup = function() {
 
     console.log("Setup");
     createCanvas(windowWidth, windowHeight);
-    current = createVector(0, 0);
-    previous = createVector(0, 0);
+
+    global.Artwork = new Store('defaultCanvas');
+
+    // initialize keyboard shortcuts
+    global.KeyController = new KeyController();
+
+    global.Toolbox = new Toolbox(global.Artwork);
 
 }
 
 global.draw = function() {
-    // clear();
-    if (currentStroke) {
-        currentStroke.draw();
-    }
+
+    // update the current tool, as needed
+    global.Toolbox.getCurrentTool().update();
+
 }
 
 // Start it up
 global.mousePressed = function() {
-    previous.x = mouseX;
-    previous.y = mouseY;
-    currentStroke = new Stroke();
-
-    global.Artwork.getCurrentLayer().addStroke(currentStroke);
+    global.Toolbox.getCurrentTool().onMousePress(mouseX, mouseY);
 }
 
 global.mouseDragged = function() {
-    if (!currentStroke) {
-        return false;
-    }
-    currentStroke.addPoint(mouseX, mouseY, {
-        thickness: 5
-    });
+    global.Toolbox.getCurrentTool().onMouseMove(mouseX, mouseY);
 }
 
 // Stop
 global.mouseReleased = function() {
-    console.log(global.Artwork.getCurrentLayer());
+    global.Toolbox.getCurrentTool().onMouseRelease(mouseX, mouseY);
 }

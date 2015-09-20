@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mousetrap": "^1.5.3",
     "p5": "^0.4.12",
     "paper": "^0.9.24"
   },

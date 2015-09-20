@@ -1,18 +1,35 @@
 'use strict';
 
+var Stroke = require('../elements/stroke');
+var clearContext = require('../polyfill/clear');
+
 export default class Layer {
-    constructor(name) {
+    constructor(name, canvasID, artwork) {
         this.name = name;
         this.strokes = []; // array of Stroke objects
         this.opacity = 1;
         this.visible = true;
+
+        this.artwork = artwork;
+
+        this.id = canvasID;
+    }
+
+    getContext() {
+        return document.getElementById(this.id).getContext('2d');
     }
 
     getStrokes() {
         return this.strokes;
     }
-    addStroke(stroke) {
+
+    // adds a stroke to this layer using the appropriate brush, then returns the stroke
+    addStroke(brush, color) {
+        let stroke = new Stroke(brush, color, this);
+        stroke.layer = this;
         this.strokes.push(stroke);
+
+        return stroke;
     }
 
     toggleVisible() {
@@ -20,9 +37,13 @@ export default class Layer {
     }
 
     // redraw all strokes on this layer (essentially redraws the layer)
-    draw() {
+    // with the given offsets and scale
+    draw(offsetX, offsetY, scale) {
+        // clear the layer
+        clearContext(this.getContext());
+
         for (let i = 0; i < this.strokes.length; i++) {
-            this.strokes[i].draw();
+            this.strokes[i].draw(offsetX, offsetY, scale);
         }
     }
 
