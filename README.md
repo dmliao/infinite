@@ -45,3 +45,7 @@ I'm not consistently working on this. Nevertheless, here's a list of features I'
 * Image import / export
 * Layers (layer support exists, but currently is impossible to create additional layers)
 * Animated brushes using P5 (a poorly-working example is given)
+
+## Misc.
+
+This project is a 'successor' to [sketch](https://github.com/dmliao/Sketch), made more than a year afterwards with new technologies.
