@@ -8,6 +8,7 @@ module.exports = function() {
     let pen = new Pen();
     let web = new Web();
 
+    // TODO: P5 Brush is still under construction
     let p5Brush = new P5();
 
     return {

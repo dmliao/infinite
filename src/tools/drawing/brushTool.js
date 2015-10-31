@@ -21,7 +21,7 @@ export default class BrushTool extends Tool {
 
     onMousePress(mouseX, mouseY) {
 
-        // add a stroke of random color
+        // add a stroke of random color (using the pen brush)
         // TODO: have a tool global variable to set the color
         this.currentStroke = this.artwork.getCurrentLayer().addStroke(
             this.brushList.pen,
@@ -45,6 +45,8 @@ export default class BrushTool extends Tool {
         }
         let actualX = mouseX - this.artwork.offsetX;
         let actualY = mouseY - this.artwork.offsetY;
+
+        // TODO: allow thickness to be user-controlled
         this.currentStroke.addPoint(actualX, actualY, {
             thickness: 3
         });

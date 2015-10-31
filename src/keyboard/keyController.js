@@ -3,6 +3,7 @@
 export default class KeyController {
     constructor() {
 
+        // TODO: Actual keyboard commands. Currently used for testing.
         Mousetrap.bind('x', function() {
             console.log("Changed to move tool");
             global.Toolbox.setCurrentTool('moveCanvas');
